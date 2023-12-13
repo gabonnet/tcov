@@ -4,7 +4,7 @@
 
 set.seed(1876543)
 alea = TRUE
-Nsamples <- 100
+Nsamples <- 1000
 cost_side <- "median" ## Choose scenario for the cost of side-effects
 # cost_side <- "low"
 # cost_side <- "high"
