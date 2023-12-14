@@ -87,26 +87,26 @@ A <- randomLHS(Nparams+Nrandparcountry,Nsamples)
     if(k==7){samp_gen[,Treat_refusal_severe:=as.numeric(general_params$Treat_refusal_severe[5])]} else if(k==8){samp_gen[,Treat_refusal_severe:=as.numeric(general_params$Treat_refusal_severe[6])]} else{samp_gen[,Treat_refusal_severe:=as.numeric(general_params$Treat_refusal_severe[1])]}
     
     # Explore other RDT sensitivity
-    if(k==9){samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[5])]} else if(k==10){samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[6])]} else{samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[1])]}
+    if(k==9){samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[5])]} else if(k==10){samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[6])]} else if(k==11){samp_gen[,RDT_sensi:=0.9]} else{samp_gen[,RDT_sensi:=as.numeric(general_params$RDT_sensi[1])]}
     
     # With health discounting
-    if(k==11){samp_gen[,Health_discount:=as.numeric(general_params$Health_discount[5])]} else{samp_gen[,Health_discount:=as.numeric(general_params$Health_discount[1])]}
+    if(k==12){samp_gen[,Health_discount:=as.numeric(general_params$Health_discount[5])]} else{samp_gen[,Health_discount:=as.numeric(general_params$Health_discount[1])]}
     
-    # if screening costs were ignored
-    if(k==12){screencost=TRUE} else{screencost=FALSE}
+    # with substantial added screening costs
+    if(k==13){screencost=TRUE} else{screencost=FALSE}
     
     # if RDT test kits were cheaper, more expensive or free
-    if(k==13){samp_gen[,Cost_RDT_testkit:=as.numeric(general_params$Cost_RDT_testkit[5])]} else if(k==14){samp_gen[,Cost_RDT_testkit:=as.numeric(general_params$Cost_RDT_testkit[6])]} else
-      if(k==15){samp_gen[,Cost_RDT_testkit:=0]}
+    if(k==14){samp_gen[,Cost_RDT_testkit:=as.numeric(general_params$Cost_RDT_testkit[5])]} else if(k==15){samp_gen[,Cost_RDT_testkit:=as.numeric(general_params$Cost_RDT_testkit[6])]} else
+      if(k==16){samp_gen[,Cost_RDT_testkit:=0]}
     else{samp_gen[,Cost_RDT_testkit:=as.numeric(general_params$Cost_RDT_testkit[1])]}
     
     # With positive or negative impacts of treatment on post-COVID  
-    if(k==16){samp_gen[,DALYs_postCov_Treat_Impact:=as.numeric(general_params$DALYs_postCov_Treat_Impact[5])]} else
-      if(k==17){samp_gen[,DALYs_postCov_Treat_Impact:=as.numeric(general_params$DALYs_postCov_Treat_Impact[6])]}
+    if(k==17){samp_gen[,DALYs_postCov_Treat_Impact:=as.numeric(general_params$DALYs_postCov_Treat_Impact[5])]} else
+      if(k==18){samp_gen[,DALYs_postCov_Treat_Impact:=as.numeric(general_params$DALYs_postCov_Treat_Impact[6])]}
     else{samp_gen[,DALYs_postCov_Treat_Impact:=as.numeric(general_params$DALYs_postCov_Treat_Impact[1])]}
     
     # Assuming no severe health side-effects/no severe or mild side-effects 
-    if(k==18){severe_effects=FALSE 
+    if(k==19){severe_effects=FALSE 
     mild_effects=FALSE} else {severe_effects=TRUE
     mild_effects=TRUE}
     
@@ -166,33 +166,56 @@ A <- randomLHS(Nparams+Nrandparcountry,Nsamples)
   ### Generating the outcomes in excel (if desired)
   
   library("writexl")
-  write_xlsx(Synthesis_total[[1]][[1]],".\\tcov_synthNMB.xlsx")
-  write_xlsx(Synthesis_total[[1]][[2]],".\\tcov_synthIL6.xlsx")
-  write_xlsx(Synthesis_total[[1]][[3]],".\\tcov_synthVenti.xlsx")
-  write_xlsx(Synthesis_total[[2]][[1]],".\\tcov_lowsideNMB.xlsx")
-  write_xlsx(Synthesis_total[[2]][[2]],".\\tcov_lowsideIL6.xlsx")
-  write_xlsx(Synthesis_total[[2]][[3]],".\\tcov_lowsideVenti.xlsx")
-  write_xlsx(Synthesis_total[[3]][[1]],".\\tcov_highsideNMB.xlsx")
-  write_xlsx(Synthesis_total[[3]][[2]],".\\tcov_highsideIL6.xlsx")
-  write_xlsx(Synthesis_total[[3]][[3]],".\\tcov_highsideVenti.xlsx")
-  write_xlsx(Synthesis_total[[4]][[2]],".\\tcov_dispecsideNMB.xlsx")
-  write_xlsx(Synthesis_total[[4]][[2]],".\\tcov_dispecsideIL6.xlsx")
-  write_xlsx(Synthesis_total[[4]][[3]],".\\tcov_dispecsideVenti.xlsx")
-  write_xlsx(Synthesis_total[[5]][[1]],".\\tcov_CostIL6lowNMB.xlsx")
-  write_xlsx(Synthesis_total[[5]][[2]],".\\tcov_CostIL6lowIL6.xlsx")
-  write_xlsx(Synthesis_total[[5]][[3]],".\\tcov_CostIL6lowVenti.xlsx")
-  write_xlsx(Synthesis_total[[6]][[1]],".\\tcov_CostIL6highIL6.xlsx")
-  write_xlsx(Synthesis_total[[6]][[2]],".\\tcov_CostIL6highIL6.xlsx")
-  write_xlsx(Synthesis_total[[6]][[3]],".\\tcov_CostIL6highVenti.xlsx")
-  # 
-  if(NoVenti==TRUE){ 
-    write_xlsx(Synthesis_total[[1]][[4]],".\\tcov_synthOxy.xlsx")
-    write_xlsx(Synthesis_total[[2]][[4]],".\\tcov_lowsideOxy.xlsx")
-    write_xlsx(Synthesis_total[[3]][[4]],".\\tcov_highsideOxy.xlsx")
-    write_xlsx(Synthesis_total[[4]][[4]],".\\tcov_dispecsideOxy.xlsx")
-    write_xlsx(Synthesis_total[[5]][[4]],".\\tcov_CostIL6lowOxy.xlsx")
-    write_xlsx(Synthesis_total[[6]][[4]],".\\tcov_CostIL6highOxy.xlsx")
-  }
+  # Creating files for net monetary benefit and most cost-effective options with/without IL6 receptor blocker availability
+ write_xlsx(Synthesis_total[[1]][[1]],paste0(path.io,"tcov_synthNMB.xlsx"))
+ write_xlsx(Synthesis_total[[1]][[2]],paste0(path.io,"tcov_synthIL6.xlsx"))
+ write_xlsx(Synthesis_total[[1]][[3]],paste0(path.io,"tcov_synthVenti.xlsx"))
+ write_xlsx(Synthesis_total[[2]][[1]],paste0(path.io,"tcov_lowsideNMB.xlsx"))
+ write_xlsx(Synthesis_total[[2]][[2]],paste0(path.io,"tcov_lowsideIL6.xlsx"))
+ write_xlsx(Synthesis_total[[2]][[3]],paste0(path.io,"tcov_lowsideVenti.xlsx"))
+ write_xlsx(Synthesis_total[[3]][[1]],paste0(path.io,"tcov_highsideNMB.xlsx"))
+ write_xlsx(Synthesis_total[[3]][[2]],paste0(path.io,"tcov_highsideIL6.xlsx"))
+ write_xlsx(Synthesis_total[[3]][[3]],paste0(path.io,"tcov_highsideVenti.xlsx"))
+ write_xlsx(Synthesis_total[[4]][[2]],paste0(path.io,"tcov_dispecsideNMB.xlsx"))
+ write_xlsx(Synthesis_total[[4]][[2]],paste0(path.io,"tcov_dispecsideIL6.xlsx"))
+ write_xlsx(Synthesis_total[[4]][[3]],paste0(path.io,"tcov_dispecsideVenti.xlsx"))
+ write_xlsx(Synthesis_total[[5]][[1]],paste0(path.io,"tcov_CostIL6lowNMB.xlsx"))
+ write_xlsx(Synthesis_total[[5]][[2]],paste0(path.io,"tcov_CostIL6lowIL6.xlsx"))
+ write_xlsx(Synthesis_total[[5]][[3]],paste0(path.io,"tcov_CostIL6lowVenti.xlsx"))
+ write_xlsx(Synthesis_total[[6]][[1]],paste0(path.io,"tcov_CostIL6highNMB.xlsx"))
+ write_xlsx(Synthesis_total[[6]][[2]],paste0(path.io,"tcov_CostIL6highIL6.xlsx"))
+ write_xlsx(Synthesis_total[[6]][[3]],paste0(path.io,"tcov_CostIL6highVenti.xlsx"))
+ #write_xlsx(Synthesis_total[[7]][[1]],paste0(path.io,"tcov_30pcTreatRefuseNMB.xlsx"))
+ #write_xlsx(Synthesis_total[[7]][[2]],paste0(path.io,"tcov_30pcTreatRefuseIL6.xlsx"))
+ #write_xlsx(Synthesis_total[[7]][[3]],paste0(path.io,"tcov_30pcTreatRefuseVenti.xlsx"))
+ #write_xlsx(Synthesis_total[[8]][[1]],paste0(path.io,"tcov_60pcTreatRefuseNMB.xlsx"))
+ #write_xlsx(Synthesis_total[[8]][[2]],paste0(path.io,"tcov_60pcTreatRefuseIL6.xlsx"))
+ #write_xlsx(Synthesis_total[[8]][[3]],paste0(path.io,"tcov_60pcTreatRefuseVenti.xlsx"))
+ #write_xlsx(Synthesis_total[[9]][[1]],paste0(path.io,"tcov_60pcRDTsensiNMB.xlsx"))
+ #write_xlsx(Synthesis_total[[9]][[2]],paste0(path.io,"tcov_60pcRDTsensiIL6.xlsx"))
+ #write_xlsx(Synthesis_total[[9]][[3]],paste0(path.io,"tcov_60pcRDTsensiVenti.xlsx"))
+ #write_xlsx(Synthesis_total[[10]][[1]],paste0(path.io,"tcov_40pcRDTsensiNMB.xlsx"))
+ #write_xlsx(Synthesis_total[[10]][[2]],paste0(path.io,"tcov_40pcRDTsensiIL6.xlsx"))
+ #write_xlsx(Synthesis_total[[10]][[3]],paste0(path.io,"tcov_40pcRDTsensiVenti.xlsx"))
+ #write_xlsx(Synthesis_total[[11]][[1]],paste0(path.io,"tcov_90pcRDTsensiNMB.xlsx"))
+ #write_xlsx(Synthesis_total[[11]][[2]],paste0(path.io,"tcov_90pcRDTsensiIL6.xlsx"))
+ #write_xlsx(Synthesis_total[[11]][[3]],paste0(path.io,"tcov_90pcRDTsensiVenti.xlsx"))
+ 
+# 
+if(NoVenti==TRUE){ 
+# Creating files for scenarios when mechanical ventilation is unavailable
+write_xlsx(Synthesis_total[[1]][[4]],paste0(path.io,"tcov_synthOxy.xlsx"))
+write_xlsx(Synthesis_total[[2]][[4]],paste0(path.io,"tcov_lowsideOxy.xlsx"))
+write_xlsx(Synthesis_total[[3]][[4]],paste0(path.io,"tcov_highsideOxy.xlsx"))
+write_xlsx(Synthesis_total[[4]][[4]],paste0(path.io,"tcov_dispecsideOxy.xlsx"))
+write_xlsx(Synthesis_total[[5]][[4]],paste0(path.io,"tcov_CostIL6lowOxy.xlsx"))
+write_xlsx(Synthesis_total[[6]][[4]],paste0(path.io,"tcov_CostIL6highOxy.xlsx"))
+#write_xlsx(Synthesis_total[[7]][[4]],paste0(path.io,"tcov_30pcTreatRefusehOxy.xlsx"))
+#write_xlsx(Synthesis_total[[8]][[4]],paste0(path.io,"tcov_60pcTreatRefuseOxy.xlsx"))
+#write_xlsx(Synthesis_total[[9]][[4]],paste0(path.io,"tcov_60pcRDTsensiOxy.xlsx"))
+#write_xlsx(Synthesis_total[[10]][[4]],paste0(path.io,"tcov_40pcRDTsensiOxy.xlsx"))
+#write_xlsx(Synthesis_total[[11]][[4]],paste0(path.io,"tcov_90pcRDTsensiOxy.xlsx"))
+}
   
   end_time <- Sys.time()
   end_time - start_time
