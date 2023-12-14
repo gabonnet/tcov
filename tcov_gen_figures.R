@@ -13,9 +13,9 @@ library(reshape2)
 ### Create Figure 2, most cost-effective option at different income levels and for different costs of corticosteroid side-effects
 
 
-tcov_VentiA <- tcov_lowsideVenti
-tcov_VentiB <- tcov_synthVenti13nov
-tcov_VentiC <- tcov_highsideVenti
+tcov_VentiA <- Synthesis_total[[2]][[3]] ## low costs of treating corticosteroid side-effects
+tcov_VentiB <- Synthesis_total[[1]][[3]] ## medium costs of treating corticosteroid side-effects
+tcov_VentiC <- Synthesis_total[[3]][[3]] ## high costs of treating corticosteroid side-effects
 
 tcov2_synthVentiA <- as.data.frame(tcov_VentiA) %>% mutate(code = Income_level*100+ Optscen_Venti)
 colnamestcovA <- tcov2_synthVentiA$code
@@ -78,7 +78,7 @@ figure2
 ### Create figure 3: impact of disease-specific corticosteroid side-effects
 
 
-tcov_Venti <- tcov_dispecsideVenti
+tcov_Venti <- Synthesis_total[[4]][[3]] ## results integrating disease-specific effects
 
 
 tcov2_synthVenti <- as.data.frame(tcov_Venti) %>% mutate(code = Income_level*100+ Optscen_Venti)
@@ -103,9 +103,9 @@ Figure3
 ###########################################################################################
 
 ### Create figure 5: cost-effectiveness of different options for different income levels and TCZ costs
-tcov_IL6a <- tcov_CostIL6lowIL6
-tcov_IL6b <- tcov_synthIL613nov
-tcov_IL6c <- tcov_CostIL6highIL6
+tcov_IL6a <- Synthesis_total[[5]][[2]] ## results with low TCZ treatment costs (USD 411)
+tcov_IL6b <- Synthesis_total[[1]][[2]] ## results with medium TCZ treatment costs (USD 861.5)
+tcov_IL6c <- Synthesis_total[[6]][[2]] ## results with high TCZ treatment costs (USD 1207)
 
 tcov2_synthIL6a <- as.data.frame(tcov_IL6a) %>% mutate(code = Income_level*100+ Optscen_VentiIL6)
 colnamestcova <- tcov2_synthIL6a$code
