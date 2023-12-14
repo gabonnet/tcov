@@ -163,21 +163,16 @@ figure5
 #### Export all plots
 
 ggsave(
-  "fig2.eps", figure2,
-  dpi = 300
-)
+   paste0(path.io,"fig2.eps"), 
+   figure2, width = 7, height = 5, units = "in", dpi = 300
+ )
 
 ggsave(
-  "fig3.eps", Figure3,
-  dpi = 300
-)
+   paste0(path.io,"fig3.eps"), 
+   figure3, width = 7, height = 5, units = "in", dpi = 300
+ )
 
 ggsave(
-  "fig5.eps", figure5,
-  dpi = 300
-)
-
-postscript("fig2.eps",  width = 4.0, height = 3.0,
-           horizontal = FALSE, onefile = FALSE, paper = "special",
-           family = "ComputerModern", encoding = "TeXtext.enc")
-plot(1,1); dev.off()
+   paste0(path.io,"fig5.eps"), 
+   figure5, width = 7, height = 5, units = "in", dpi = 300
+ )
