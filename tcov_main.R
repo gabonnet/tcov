@@ -24,6 +24,7 @@ path.dat <- "./data/"
   source("tcov_gen_country_samp.R") ### generates country-specific parameters
   source("tcov_gen_useful_params.R") ### computes useful parameters
   source("tcov_tree.R") ### generates the decision tree
+  source("tcov_gen_figures.R") ### generates the figures
   
   require("data.table") 
   require("tidyverse")
